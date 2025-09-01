@@ -1,0 +1,149 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "edit": "ask",
+    "bash": "ask",
+    "webfetch": "allow"
+  },
+  "agent": {
+    "build": {
+      "mode": "primary",
+      "model": "anthropic/claude-sonnet-4-20250514",
+      "temperature": 0.3,
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "read": true,
+        "grep": true,
+        "glob": true
+      },
+      "permission": {
+        "edit": "allow",
+        "bash": {
+          "*": "ask",
+          "git push": "ask",
+          "terraform *": "deny"
+        },
+        "webfetch": "allow"
+      },
+      "description": "Primary development agent (full tool access with guarded bash)."
+    },
+    "plan": {
+      "mode": "primary",
+      "model": "anthropic/claude-haiku-4-20250514",
+      "temperature": 0.1,
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "read": true,
+        "grep": true,
+        "glob": true
+      },
+      "permission": {
+        "edit": "deny",
+        "bash": "deny",
+        "webfetch": "allow"
+      },
+      "description": "Planning / analysis only (no modifications)."
+    },
+
+    "viva": {
+      "mode": "subagent",
+      "model": "github-copilot/gpt-5",
+      "temperature": 0.1,
+      "description": "Value & prioritization engine (deterministic backlog ranking).",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "write": false,
+        "edit": false,
+        "bash": false
+      },
+      "permission": {
+        "edit": "deny",
+        "bash": "deny",
+        "webfetch": "allow"
+      }
+    },
+    "syra": {
+      "mode": "subagent",
+      "model": "github-copilot/gpt-5",
+      "temperature": 0.1,
+      "description": "Adaptive secure-by-default architecture & infra alignment recommender.",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "write": false,
+        "edit": false,
+        "bash": false
+      },
+      "permission": {
+        "edit": "deny",
+        "bash": "ask",
+        "webfetch": "allow"
+      }
+    },
+    "maka": {
+      "mode": "subagent",
+      "model": "github-copilot/gpt-5",
+      "temperature": 0.15,
+      "description": "Full‑stack vertical slice decomposition & TDD planning (no code writes).",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "write": false,
+        "edit": false,
+        "bash": false
+      },
+      "permission": {
+        "edit": "deny",
+        "bash": "deny",
+        "webfetch": "allow"
+      }
+    },
+    "qra": {
+      "mode": "subagent",
+      "model": "github-copilot/gpt-5",
+      "temperature": 0.1,
+      "description": "Reality & quality validation (accessibility, usability, performance correlation).",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "write": false,
+        "edit": false,
+        "bash": false
+      },
+      "permission": {
+        "edit": "deny",
+        "bash": "deny",
+        "webfetch": "allow"
+      }
+    },
+    "lua": {
+      "mode": "subagent",
+      "model": "github-copilot/gpt-5",
+      "temperature": 0.1,
+      "description": "Living user workflow simulation & friction/adoption signal synthesis.",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "write": false,
+        "edit": false,
+        "bash": false
+      },
+      "permission": {
+        "edit": "deny",
+        "bash": "deny",
+        "webfetch": "allow"
+      }
+    }
+  },
+  "notes": "Markdown agent definitions live in .opencode/agent/*.md (source of authoritative prompts). JSON entries provide centralized overrides & permission scaffolding. Adjust model names or temperatures per project performance constraints."
+}
