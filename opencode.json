@@ -48,7 +48,6 @@
       },
       "description": "Planning / analysis only (no modifications)."
     },
-
     "viva": {
       "mode": "subagent",
       "model": "github-copilot/gpt-5",
@@ -149,29 +148,11 @@
     ".opencode/AGENTS.md",
     "PROJECT_OBJECTIVE.md"
   ],
-  "commands": {
-    "directory": ".opencode/command"
-  },
   "mcp": {
     "servers": {
-      "local-metrics": {
-        "transport": "stdio",
-        "command": "python",
-        "args": ["scripts/metrics_server.py"],
-        "enabled": false,
-        "description": "Placeholder local performance metrics collector (enable when script added)."
-      },
-      "remote-security-scan": {
-        "transport": "http",
-        "url": "https://placeholder-security-scan.example/api",
-        "enabled": false,
-        "description": "Placeholder remote security scan aggregator."
-      }
-    },
-    "policies": {
-      "allow": [],
-      "deny": []
+      "type": "local",
+      "command": ["true"],
+      "enabled": false
     }
-  },
-  "notes": "Markdown agent definitions live in .opencode/agent/*.md (source of authoritative prompts). JSON entries provide centralized overrides & permission scaffolding. Adjust model names or temperatures per project performance constraints."
+  }
 }
